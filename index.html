@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>叶永康 — 人工智能大一 · 寻找 Python / C# 实习</title>
+<meta name="description" content="无锡商业职业技术学院人工智能技术应用专业大一在读，热爱 Python 与 C# 开发，寻找实习机会" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Design Tokens — 融合 Stripe + Vercel
+   ============================================================ */
+:root {
+  /* Primary — deep ink + indigo accent */
+  --primary: #533afd;
+  --primary-deep: #4434d4;
+  --primary-press: #2e2b8c;
+  --primary-soft: #665efd;
+  --primary-subdued: #e8e5ff;
+  --ink: #171717;
+  --ink-secondary: #3a3a3a;
+  --body: #4d4d4d;
+  --mute: #888888;
+  /* Surfaces */
+  --canvas: #ffffff;
+  --canvas-soft: #fafafa;
+  --canvas-soft-2: #f5f5f5;
+  /* Hairlines */
+  --hairline: #ebebeb;
+  --hairline-strong: #a1a1a1;
+  /* Semantic */
+  --link: #0070f3;
+  --success: #0cce6b;
+  --error: #ee0000;
+  --warning: #f5a623;
+  /* Mesh gradient stops — tech-cool palette */
+  --g-1: #533afd;
+  --g-2: #6366f1;
+  --g-3: #06b6d4;
+  --g-4: #7928ca;
+  --g-5: #ec4899;
+  --g-6: #0070f3;
+  /* Shadows — Vercel stacked system */
+  --shadow-sm: 0 1px 1px rgba(0,0,0,0.02), 0 2px 2px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.06) inset;
+  --shadow-md: 0 2px 2px rgba(0,0,0,0.04), 0 8px 16px -4px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.06) inset;
+  --shadow-lg: 0 4px 4px rgba(0,0,0,0.04), 0 12px 24px -6px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.06) inset;
+}
+
+/* —— Reset & Base —— */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Inter", "Noto Sans SC", system-ui, -apple-system, sans-serif;
+  font-feature-settings: "ss01", "ss02", "cv01";
+  background: var(--canvas);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--primary-subdued); color: var(--primary-deep); }
+
+.mono { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+.tnum { font-feature-settings: "ss01", "tnum"; }
+
+/* —— Layout —— */
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.wrap-narrow { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+.wrap-wide { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+
+/* ============================================================
+   1. NAV — sticky minimal
+   ============================================================ */
+.top-nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid var(--hairline);
+  height: 60px;
+}
+.nav-inner {
+  height: 100%;
+  display: flex; align-items: center; gap: 32px;
+}
+.nav-logo {
+  font-weight: 600; font-size: 17px;
+  letter-spacing: -0.4px; color: var(--ink);
+}
+.nav-links { display: flex; gap: 4px; margin-left: auto; }
+.nav-links a {
+  font-size: 14px; font-weight: 400; color: var(--body);
+  padding: 7px 14px; border-radius: 9999px;
+  transition: background .15s ease, color .15s ease;
+  letter-spacing: -0.28px;
+}
+.nav-links a:hover { background: var(--canvas-soft-2); color: var(--ink); }
+@media (max-width: 640px) { .nav-links { gap: 0; } .nav-links a { padding: 7px 10px; font-size: 13px; } }
+
+/* ============================================================
+   2. HERO — mesh gradient centerpiece
+   ============================================================ */
+.hero {
+  position: relative; overflow: hidden;
+  padding: 80px 24px 120px;
+  text-align: center;
+  background: var(--canvas);
+}
+.hero-mesh {
+  position: absolute; left: 50%; top: -100px;
+  transform: translateX(-50%);
+  width: 1100px; height: 700px;
+  filter: blur(80px) saturate(120%);
+  opacity: 0.65;
+  pointer-events: none;
+  background:
+    radial-gradient(36% 48% at 15% 30%, var(--g-1) 0%, transparent 60%),
+    radial-gradient(32% 46% at 30% 55%, var(--g-3) 0%, transparent 58%),
+    radial-gradient(34% 50% at 50% 28%, var(--g-4) 0%, transparent 58%),
+    radial-gradient(38% 52% at 68% 58%, var(--g-5) 0%, transparent 58%),
+    radial-gradient(32% 48% at 82% 25%, var(--g-2) 0%, transparent 58%),
+    radial-gradient(36% 55% at 94% 60%, var(--g-6) 0%, transparent 58%);
+  z-index: 0;
+  animation: mesh-breathe 12s ease-in-out infinite alternate;
+}
+@keyframes mesh-breathe {
+  0% { filter: blur(80px) saturate(120%); opacity: 0.65; }
+  100% { filter: blur(100px) saturate(140%); opacity: 0.75; }
+}
+/* Fade mesh at bottom */
+.hero::after {
+  content: ""; position: absolute; inset: auto 0 0 0; height: 200px;
+  background: linear-gradient(to bottom, transparent, var(--canvas));
+  z-index: 1; pointer-events: none;
+}
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: 720px; margin: 0 auto;
+}
+.hero .eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: 9999px;
+  padding: 5px 14px 5px 6px;
+  font-size: 13px; color: var(--body);
+  letter-spacing: -0.26px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-sm);
+}
+.hero .eyebrow .dot {
+  display: inline-block; width: 8px; height: 8px;
+  border-radius: 50%; background: var(--success);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+.hero .eyebrow .mono-tag {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px; color: var(--mute);
+  margin-left: 4px;
+}
+.hero h1 {
+  font-size: clamp(42px, 7vw, 76px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -3.2px;
+  color: var(--ink);
+  margin: 0 0 20px;
+}
+.hero h1 .grad {
+  background: linear-gradient(135deg, var(--g-1), var(--g-5));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero .lead {
+  font-size: 18px; font-weight: 400;
+  line-height: 1.6; color: var(--body);
+  max-width: 520px; margin: 0 auto 36px;
+}
+.hero-ctas {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+}
+
+/* —— Pill buttons —— */
+.pill {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  height: 48px; padding: 0 24px;
+  border-radius: 9999px;
+  font-size: 16px; font-weight: 500; line-height: 1;
+  font-family: inherit;
+  border: 1px solid transparent;
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+  transition: background .15s ease, color .15s ease, border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.pill:active { transform: scale(0.97); }
+.pill-primary {
+  background: var(--primary); color: #fff;
+}
+.pill-primary:hover { background: var(--primary-deep); box-shadow: 0 4px 16px rgba(83,58,253,0.3); }
+.pill-outline {
+  background: var(--canvas); color: var(--ink);
+  border-color: var(--hairline);
+}
+.pill-outline:hover { border-color: var(--hairline-strong); background: var(--canvas-soft); }
+
+/* ============================================================
+   3. ABOUT — split layout
+   ============================================================ */
+.section { padding: 100px 24px; }
+.section-soft { background: var(--canvas-soft); }
+.section-dark { background: var(--ink); color: #fff; }
+
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1.4fr;
+  gap: 64px; align-items: center;
+}
+@media (max-width: 768px) {
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+.about-avatar-wrap {
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+}
+.avatar-placeholder {
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--g-1), var(--g-5));
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 64px; font-weight: 300;
+  box-shadow: 0 8px 32px rgba(83,58,253,0.2);
+  user-select: none;
+  /* Replace with: background: url('your-photo.jpg') center/cover; */
+}
+.about-avatar-wrap .status-row {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; color: var(--mute);
+  font-family: "JetBrains Mono", monospace;
+}
+.about-avatar-wrap .status-row .live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--success);
+}
+.about-text h2 {
+  font-size: clamp(28px, 3.8vw, 40px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -1.2px;
+  margin: 0 0 20px;
+  color: var(--ink);
+}
+.about-text p {
+  font-size: 16px; line-height: 1.7;
+  color: var(--body);
+  margin: 0 0 12px;
+}
+.about-text .highlight-list {
+  display: flex; flex-wrap: wrap; gap: 16px;
+  margin-top: 24px; padding: 0; list-style: none;
+}
+.about-text .highlight-list li {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; color: var(--ink-secondary);
+}
+.about-text .highlight-list li .icon-mono {
+  font-family: "JetBrains Mono", monospace;
+  color: var(--primary); font-size: 18px;
+}
+
+/* ============================================================
+   4. SKILLS — tag cloud grouped
+   ============================================================ */
+.section-head {
+  text-align: center; max-width: 640px; margin: 0 auto 56px;
+}
+.section-head .eyebrow-mono {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px; color: var(--primary);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+.section-head h2 {
+  font-size: clamp(28px, 4.2vw, 44px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -1.6px;
+  margin: 0 0 16px;
+  color: var(--ink);
+}
+.section-head p {
+  font-size: 17px; line-height: 1.6; color: var(--body); margin: 0;
+}
+
+.skill-groups {
+  display: grid; gap: 32px;
+  grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 900px) { .skill-groups { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .skill-groups { grid-template-columns: 1fr; } }
+
+.skill-group {
+  background: var(--canvas);
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: var(--shadow-md);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.skill-group:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.skill-group h3 {
+  font-size: 16px; font-weight: 600;
+  letter-spacing: -0.48px;
+  margin: 0 0 8px;
+  display: flex; align-items: center; gap: 8px;
+  color: var(--ink);
+}
+.skill-group h3 .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.skill-group .sub { font-size: 13px; color: var(--mute); margin-bottom: 16px; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  display: inline-flex; align-items: center;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-size: 13px; font-weight: 400;
+  letter-spacing: -0.26px;
+  background: var(--canvas-soft-2);
+  color: var(--ink-secondary);
+  border: 1px solid var(--hairline);
+  transition: background .15s ease, border-color .15s ease;
+}
+.tag:hover { background: var(--primary-subdued); border-color: var(--primary-subdued); color: var(--primary-deep); }
+
+/* ============================================================
+   5. PROJECTS — card grid with terminal vibe
+   ============================================================ */
+.project-grid {
+  display: grid; gap: 24px;
+  grid-template-columns: 1fr;
+}
+.project-card {
+  background: var(--canvas);
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: var(--shadow-md);
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  overflow: hidden;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.project-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+@media (max-width: 800px) {
+  .project-card { grid-template-columns: 1fr; }
+}
+
+.project-info {
+  padding: 36px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.project-info .project-role {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px; color: var(--primary);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.project-info h3 {
+  font-size: 24px; font-weight: 600;
+  letter-spacing: -0.72px;
+  margin: 0;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.project-info .project-desc {
+  font-size: 15px; line-height: 1.6; color: var(--body);
+  margin: 0;
+}
+.project-info .project-stack {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.project-info .stack-item {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: var(--canvas-soft-2);
+  color: var(--ink-secondary);
+  letter-spacing: 0;
+}
+.project-info .project-metrics {
+  display: grid; gap: 8px;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 4px;
+}
+@media (max-width: 500px) { .project-info .project-metrics { grid-template-columns: repeat(2, 1fr); } }
+.project-info .metric-item {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.project-info .metric-item .num {
+  font-size: 22px; font-weight: 600;
+  letter-spacing: -0.8px;
+  color: var(--ink);
+  font-feature-settings: "tnum";
+  line-height: 1;
+}
+.project-info .metric-item .label {
+  font-size: 11px; color: var(--mute);
+  font-family: "JetBrains Mono", monospace;
+}
+.project-links { display: flex; gap: 12px; margin-top: auto; padding-top: 8px; }
+.project-links a {
+  font-size: 14px; font-weight: 500;
+  color: var(--link); letter-spacing: -0.28px;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.project-links a:hover { color: var(--primary-deep); }
+.project-links a::after { content: " →"; }
+
+/* Terminal panel */
+.project-terminal {
+  background: #0d1117;
+  padding: 24px;
+  display: flex; flex-direction: column;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  line-height: 1.65;
+  color: #c9d1d9;
+  overflow: hidden;
+  min-height: 280px;
+}
+.terminal-head {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 16px; padding-bottom: 12px;
+  border-bottom: 1px solid #21262d;
+}
+.terminal-head .t-dot { width: 10px; height: 10px; border-radius: 50%; }
+.t-dot.r { background: #ff5f57; } .t-dot.y { background: #ffbd2e; } .t-dot.g { background: #28c840; }
+.terminal-head .t-title {
+  margin-left: 8px; font-size: 12px; color: #8b949e;
+  font-family: "Inter", "Noto Sans SC", sans-serif;
+}
+.terminal-body { flex: 1; }
+.terminal-body .prompt { color: #58a6ff; }
+.terminal-body .cmd { color: #7ee787; }
+.terminal-body .out { color: #8b949e; }
+.terminal-body .val { color: #ffa657; }
+.terminal-body .hl { color: #ff7b72; }
+
+/* ============================================================
+   6. CONTACT — minimal link cards
+   ============================================================ */
+.contact-grid {
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 800px) { .contact-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 440px) { .contact-grid { grid-template-columns: 1fr; } }
+
+.contact-card {
+  background: var(--canvas);
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: var(--shadow-md);
+  display: flex; flex-direction: column; gap: 8px;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.contact-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.contact-card .c-icon {
+  font-size: 28px; line-height: 1;
+  margin-bottom: 4px;
+}
+.contact-card .c-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px; color: var(--mute);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.contact-card .c-value {
+  font-size: 16px; font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.32px;
+}
+.contact-card .c-hint {
+  font-size: 12px; color: var(--mute);
+}
+
+/* ============================================================
+   7. FOOTER
+   ============================================================ */
+.site-footer {
+  border-top: 1px solid var(--hairline);
+  padding: 40px 24px;
+  background: var(--canvas);
+}
+.footer-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+}
+.footer-inner .left {
+  font-size: 13px; color: var(--mute); letter-spacing: -0.26px;
+}
+.footer-inner .left .heart { color: var(--g-5); }
+.footer-inner .right {
+  display: flex; gap: 20px;
+}
+.footer-inner .right a {
+  font-size: 13px; color: var(--mute);
+  letter-spacing: -0.26px;
+  transition: color .15s ease;
+}
+.footer-inner .right a:hover { color: var(--ink); }
+
+/* ============================================================
+   Animations — scroll fade-in
+   ============================================================ */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  animation: fade-up 0.6s ease-out both;
+}
+
+/* —— Responsive fine-tune —— */
+@media (max-width: 640px) {
+  .hero { padding: 56px 20px 80px; }
+  .hero h1 { letter-spacing: -1.8px; }
+  .section { padding: 64px 20px; }
+  .project-info { padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+ NAV
+ ============================================================ -->
+<nav class="top-nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="nav-logo">@yongkang · AI 大一</a>
+    <div class="nav-links">
+      <a href="#about">关于</a>
+      <a href="#skills">技能</a>
+      <a href="#projects">项目</a>
+      <a href="#contact">联系</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+ HERO
+ ============================================================ -->
+<section class="hero">
+  <div class="hero-mesh"></div>
+  <div class="hero-inner">
+    <div class="eyebrow">
+      <span class="dot"></span>
+      正在寻找实习机会
+      <span class="mono-tag">#intern</span>
+    </div>
+    <h1>
+      热爱 <span class="grad">Python</span> 与 C#，寻找实习机会
+    </h1>
+    <p class="lead">
+      无锡商业职业技术学院 · 人工智能技术应用 · 大一在读。
+      擅长 Python 爬虫与数据采集，正在深入学习 C# 与 .NET 生态。
+      希望找到一份能让我快速成长的开发实习。
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="pill pill-primary">查看项目</a>
+      <a href="#contact" class="pill pill-outline">联系我</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+ ABOUT
+ ============================================================ -->
+<section id="about" class="section">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-avatar-wrap">
+        <div class="avatar-placeholder">YK</div>
+        <!-- 替换为真实照片: <img src="avatar.jpg" alt="叶永康" style="border-radius:50%;width:200px;height:200px;object-fit:cover;"> -->
+        <div class="status-row">
+          <span class="live-dot"></span> 无锡商业职业技术学院 · 人工智能技术应用 · 大一
+        </div>
+      </div>
+      <div class="about-text">
+        <h2>你好，我是叶永康 👋</h2>
+        <p>
+          目前就读于无锡商业职业技术学院人工智能技术应用专业，大一。大学课堂上第一次接触编程就爱上了它——从 C 语言入门打好基础，到用 Python 做爬虫和数据工具，再到学习 C# 和面向对象编程。
+        </p>
+        <p>
+          课余时间喜欢动手写小项目，用 Python 写爬虫抓取数据、做自动化脚本解决重复性工作。目前在深入学习 C# 和 .NET 生态，目标是能独立开发桌面应用和后端服务。享受把想法变成代码、让代码跑起来的那一刻。
+        </p>
+        <ul class="highlight-list">
+          <li><span class="icon-mono">▸</span> Python 爬虫 & 数据采集</li>
+          <li><span class="icon-mono">▸</span> C# / .NET 应用开发（学习中）</li>
+          <li><span class="icon-mono">▸</span> 自动化脚本 & 效率工具</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+ SKILLS
+ ============================================================ -->
+<section id="skills" class="section section-soft">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow-mono">Tech Stack</div>
+      <h2>技术能力</h2>
+      <p>从课堂到实战，持续积累的技术栈</p>
+    </div>
+
+    <div class="skill-groups">
+      <!-- 语言 -->
+      <div class="skill-group">
+        <h3><span class="dot" style="background:var(--g-1);"></span> Python 生态</h3>
+        <div class="sub">主力开发语言</div>
+        <div class="skill-tags">
+          <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">FastAPI</span>
+          <span class="tag">SQLAlchemy</span><span class="tag">Pytest</span><span class="tag">Requests</span>
+          <span class="tag">Jinja2</span><span class="tag">虚拟环境</span>
+        </div>
+      </div>
+
+      <!-- 基础设施 -->
+      <div class="skill-group">
+        <h3><span class="dot" style="background:var(--g-3);"></span> C# / .NET 生态</h3>
+        <div class="sub">第二语言 · 持续深入</div>
+        <div class="skill-tags">
+          <span class="tag">C#</span><span class="tag">.NET</span><span class="tag">ASP.NET Core</span>
+          <span class="tag">Entity Framework</span><span class="tag">LINQ</span><span class="tag">WPF</span>
+          <span class="tag">WinForms</span>
+        </div>
+      </div>
+
+      <!-- 算法 & 数据 -->
+      <div class="skill-group">
+        <h3><span class="dot" style="background:var(--g-4);"></span> 通用基础</h3>
+        <div class="sub">课程 + 自学</div>
+        <div class="skill-tags">
+          <span class="tag">SQL / MySQL</span><span class="tag">Git / GitHub</span><span class="tag">HTML / CSS / JS</span>
+          <span class="tag">数据结构</span><span class="tag">算法基础</span><span class="tag">Linux 基础</span>
+          <span class="tag">Docker 入门</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+ PROJECTS
+ ============================================================ -->
+<section id="projects" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow-mono">Projects</div>
+      <h2>项目作品</h2>
+      <p>课余时间做的一些小项目，每一个都让我学到了新东西</p>
+    </div>
+
+    <div class="project-grid">
+
+      <!-- Project 1 — 电商数据爬虫 -->
+      <div class="project-card">
+        <div class="project-info">
+          <div class="project-role">个人项目 · 2026</div>
+          <h3>电商商品数据采集工具</h3>
+          <p class="project-desc">
+            基于 Python 开发的商品信息采集工具，支持多平台商品价格、销量、评价数据自动抓取。使用 Requests + BeautifulSoup 解析页面，CSV 持久化存储，支持断点续爬和频率控制。
+          </p>
+          <div class="project-stack">
+            <span class="stack-item">Python</span>
+            <span class="stack-item">Requests</span>
+            <span class="stack-item">BeautifulSoup</span>
+            <span class="stack-item">Pandas</span>
+            <span class="stack-item">CSV</span>
+          </div>
+          <div class="project-metrics">
+            <div class="metric-item">
+              <span class="num">3<span style="font-size:14px;color:var(--mute);"> 平台</span></span>
+              <span class="label">数据源</span>
+            </div>
+            <div class="metric-item">
+              <span class="num">5000<span style="font-size:14px;color:var(--mute);">+</span></span>
+              <span class="label">采集条数</span>
+            </div>
+            <div class="metric-item">
+              <span class="num">2<span style="font-size:14px;color:var(--mute);"> 周</span></span>
+              <span class="label">开发周期</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-terminal">
+          <div class="terminal-head">
+            <span class="t-dot r"></span><span class="t-dot y"></span><span class="t-dot g"></span>
+            <span class="t-title">scraper — run</span>
+          </div>
+          <div class="terminal-body">
+            <span class="prompt">$</span> <span class="cmd">python</span> scraper.py --platform jd --keyword "机械键盘"<br>
+            <span class="out">[INFO] 开始采集: 京东 · 机械键盘</span><br>
+            <span class="out">[INFO] 第1页: 采集 </span><span class="val">60</span><span class="out"> 条商品</span><br>
+            <span class="out">[INFO] 第2页: 采集 </span><span class="val">60</span><span class="out"> 条商品</span><br>
+            <span class="out">[INFO] 第3页: 采集 </span><span class="val">58</span><span class="out"> 条商品</span><br>
+            <span class="out">[DONE] 共采集 </span><span class="hl">178</span><span class="out"> 条 · 耗时 </span><span class="val">23.6s</span><br>
+            <span class="out">[SAVE] 数据已导出至 </span><span class="val">output/jd_机械键盘_20260614.csv</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 — 图书管理 -->
+      <div class="project-card">
+        <div class="project-info">
+          <div class="project-role">课程设计 · 2025</div>
+          <h3>图书管理系统（C# WinForms）</h3>
+          <p class="project-desc">
+            使用 C# 和 WinForms 开发的桌面图书管理系统。支持图书入库、借阅归还、读者管理和逾期提醒。采用三层架构（UI / BLL / DAL），数据持久化到 SQLite。
+          </p>
+          <div class="project-stack">
+            <span class="stack-item">C#</span>
+            <span class="stack-item">WinForms</span>
+            <span class="stack-item">SQLite</span>
+            <span class="stack-item">ADO.NET</span>
+            <span class="stack-item">三层架构</span>
+          </div>
+          <div class="project-metrics">
+            <div class="metric-item">
+              <span class="num">5<span style="font-size:14px;color:var(--mute);"> 个</span></span>
+              <span class="label">功能模块</span>
+            </div>
+            <div class="metric-item">
+              <span class="num">1.2k<span style="font-size:14px;color:var(--mute);"> 行</span></span>
+              <span class="label">代码量</span>
+            </div>
+            <div class="metric-item">
+              <span class="num">A<span style="font-size:14px;color:var(--mute);"> 级</span></span>
+              <span class="label">课程评分</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="#">GitHub</a>
+          </div>
+        </div>
+        <div class="project-terminal">
+          <div class="terminal-head">
+            <span class="t-dot r"></span><span class="t-dot y"></span><span class="t-dot g"></span>
+            <span class="t-title">LibraryManager — build</span>
+          </div>
+          <div class="terminal-body">
+            <span class="prompt">$</span> <span class="cmd">dotnet</span> build<br>
+            <span class="out">Build succeeded.</span><br>
+            <span class="out">    0 Warning(s)</span><br>
+            <span class="out">    0 Error(s)</span><br><br>
+            <span class="prompt">$</span> <span class="cmd">dotnet</span> run<br>
+            <span class="out">[INFO] 数据库初始化完成</span><br>
+            <span class="out">[INFO] 加载 </span><span class="val">326</span><span class="out"> 条图书记录</span><br>
+            <span class="out">[INFO] 读者表: </span><span class="val">48</span><span class="out"> 人已注册</span><br>
+            <span class="out">[INFO] 主窗口已启动</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 — 自动化脚本 -->
+      <div class="project-card">
+        <div class="project-info">
+          <div class="project-role">持续积累 · 2025–至今</div>
+          <h3>Python 自动化脚本集</h3>
+          <p class="project-desc">
+            日常开发中积累的实用 Python 脚本合集。涵盖文件批量处理、数据清洗、网页信息提取、定时任务等场景。注重代码可复用性，每个脚本配有使用说明和参数配置。
+          </p>
+          <div class="project-stack">
+            <span class="stack-item">Python</span>
+            <span class="stack-item">Requests</span>
+            <span class="stack-item">BeautifulSoup</span>
+            <span class="stack-item">Pandas</span>
+            <span class="stack-item">openpyxl</span>
+            <span class="stack-item">schedule</span>
+          </div>
+          <div class="project-metrics">
+            <div class="metric-item">
+              <span class="num">10<span style="font-size:14px;color:var(--mute);">+</span></span>
+              <span class="label">实用脚本</span>
+            </div>
+            <div class="metric-item">
+              <span class="num">Python<span style="font-size:14px;color:var(--mute);"> 3.x</span></span>
+              <span class="label">开发环境</span>
+            </div>
+            <div class="metric-item">
+              <span class="num">持续<span style="font-size:14px;color:var(--mute);"> 更新</span></span>
+              <span class="label">维护状态</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-terminal">
+          <div class="terminal-head">
+            <span class="t-dot r"></span><span class="t-dot y"></span><span class="t-dot g"></span>
+            <span class="t-title">scripts — list</span>
+          </div>
+          <div class="terminal-body">
+            <span class="prompt">$</span> <span class="cmd">python</span> scripts.py --list<br>
+            <span class="out">📁 scripts/</span><br>
+            <span class="out">├── </span><span class="val">batch_rename.py</span><span class="out">   批量文件重命名</span><br>
+            <span class="out">├── </span><span class="val">excel_merge.py</span><span class="out">    Excel 多表合并</span><br>
+            <span class="out">├── </span><span class="val">web_monitor.py</span><span class="out">   网页变动监控</span><br>
+            <span class="out">├── </span><span class="val">data_clean.py</span><span class="out">    CSV 数据清洗</span><br>
+            <span class="out">├── </span><span class="val">img_compress.py</span><span class="out">  图片批量压缩</span><br>
+            <span class="out">└── </span><span class="val">auto_backup.py</span><span class="out">   目录定时备份</span><br>
+            <span class="out"><span class="hl">10 scripts</span> · 100% Python</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+ CONTACT
+ ============================================================ -->
+<section id="contact" class="section section-soft">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow-mono">Get In Touch</div>
+      <h2>联系我</h2>
+      <p>欢迎技术交流、实习机会，期待与你联系 🤝</p>
+    </div>
+
+    <div class="contact-grid">
+      <a href="mailto:yyk816698@163.com" class="contact-card">
+        <div class="c-icon">📧</div>
+        <div class="c-label">Email</div>
+        <div class="c-value">yyk816698@163.com</div>
+        <div class="c-hint">看到邮件会尽快回复</div>
+      </a>
+
+      <a href="https://github.com/yk816698" target="_blank" rel="noopener" class="contact-card">
+        <div class="c-icon">💻</div>
+        <div class="c-label">GitHub</div>
+        <div class="c-value">@yk816698</div>
+        <div class="c-hint">项目代码 & 学习记录</div>
+      </a>
+
+      <a href="#" class="contact-card">
+        <div class="c-icon">📄</div>
+        <div class="c-label">简历</div>
+        <div class="c-value">下载 PDF</div>
+        <div class="c-hint">最新更新: 2026.06</div>
+      </a>
+
+      <a href="#" class="contact-card">
+        <div class="c-icon">🔗</div>
+        <div class="c-label">在线简历</div>
+        <div class="c-value">在线查看</div>
+        <div class="c-hint">直接在网页中浏览</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+ FOOTER
+ ============================================================ -->
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="left">
+      © 2026 叶永康 · 无锡商业职业技术学院 · Built with <span class="heart">♥</span> + vanilla HTML/CSS
+    </div>
+    <div class="right">
+      <a href="https://github.com/yk816698">GitHub</a>
+      <a href="mailto:yyk816698@163.com">邮箱</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
